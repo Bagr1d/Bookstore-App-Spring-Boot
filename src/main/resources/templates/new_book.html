@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create new book</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+</head>
+<body>
+    <div>
+        <h2>Create new book</h2>
+        <a href="/" class="button">Home</a>
+        <a href="/books_list" class="button">Books List</a>
+        <br />
+        <form action="#" th:action="@{/save_book}" th:object="${book}" method="post">
+            <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error">Title Error</div>
+            <div th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}" class="error">Publisher Error</div>
+            <div th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="error">Category Error</div>
+            <div th:if="${#fields.hasErrors('author')}" th:errors="*{author}" class="error">Author Error</div>
+            <table>
+                <tr>
+                    <td>Title</td>
+                    <td><input type="text" th:field="*{title}" /></td>
+                </tr>
+                <tr>
+                    <td>Publisher</td>
+                    <td>
+                        <select th:field="*{publisher.idp}">
+                            <option th:each="publisher : ${publishers}"
+                                    th:value="${publisher.idp}" th:text="${publisher.name}"></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Category</td>
+                    <td>
+                        <select th:field="*{category.idc}">
+                            <option th:each="category : ${categories}"
+                                    th:value="${category.idc}" th:text="${category.description}"></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Author</td>
+                    <td>
+                        <select th:field="*{author.ida}">
+                            <option th:each="author : ${authors}"
+                                    th:value="${author.ida}" th:text="${author.name}"></option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <button type="submit">Save</button>
+        </form>
+    </div>
+</body>
+</html>
